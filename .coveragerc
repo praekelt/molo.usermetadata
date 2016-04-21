@@ -1,0 +1,3 @@
+[run]
+omit = molo/usermetadata/migrations/*
+source= molo/usermetadata/
