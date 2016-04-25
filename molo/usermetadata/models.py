@@ -24,6 +24,7 @@ class PersonaPage(TranslatablePageMixin, Page):
 
     class Meta:
         verbose_name = _('Persona')
+        verbose_name_plural = _('Personae')
 
 PersonaPage.content_panels = [
     FieldPanel('title', classname='full title'),
