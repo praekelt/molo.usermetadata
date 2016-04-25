@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags i18n %}
+
+{% block content %}
+<div>
+    <div>{{ index_page.title }}</div>
+    <ul>
+        {% for persona in persona_pages %}
+        {% if persona.image %}
+          {% image persona.image width-30 as tmp_photo %}
+          <img src="{{ tmp_photo.url }}" alt="{{ persona.image.title }}"/>
+        {% endif %}
+        <li>{{ persona.title }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">{% trans "Skip" %}</a>
+</div>
+{% endblock %}
