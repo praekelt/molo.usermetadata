@@ -10,6 +10,6 @@ urlpatterns = patterns(
         r'^persona/(?P<persona_id>\d+)$',
         views.SetPersonaView, name='set_persona'),
     url(
-        r'^persona/skip$',
+        r'^persona/skip/$',
         views.SkipPersonaView, name='skip_persona')
 )

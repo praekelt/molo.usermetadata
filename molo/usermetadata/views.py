@@ -25,5 +25,5 @@ def SetPersonaView(request, persona_id):
 
 
 def SkipPersonaView(request):
-    request.session['MOLO_PERSONA_SELECTION'] = ''
+    request.session['MOLO_PERSONA_SELECTION'] = 'skip'
     return HttpResponseRedirect(request.GET.get('next', '/'))
