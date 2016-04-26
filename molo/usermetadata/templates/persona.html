@@ -3,16 +3,17 @@
 
 {% block content %}
 <div>
-    <div>{{ index_page.title }}</div>
     <ul>
         {% for persona in persona_pages %}
-        {% if persona.image %}
+        <li>
+          {% if persona.image %}
           {% image persona.image width-30 as tmp_photo %}
           <img src="{{ tmp_photo.url }}" alt="{{ persona.image.title }}"/>
-        {% endif %}
-        <li>{{ persona.title }}</li>
+          {% endif %}
+          <a href="{% url 'molo.usermetadata:set_persona' persona.id %}?next={{ next }}">{{ persona.title }}</a>
+        </li>
         {% endfor %}
     </ul>
-    <a href="/">{% trans "Skip" %}</a>
+    <a href="{% url 'molo.usermetadata:skip_persona'%}?next={{ next }}">{% trans "Skip" %}</a>
 </div>
 {% endblock %}
