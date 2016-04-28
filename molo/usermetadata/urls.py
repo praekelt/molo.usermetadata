@@ -7,9 +7,9 @@ urlpatterns = patterns(
     '',
     url(r'^persona/$', views.PersonaView.as_view(), name='persona'),
     url(
-        r'^persona/(?P<persona_id>\d+)$',
-        views.SetPersonaView, name='set_persona'),
+        r'^persona/(?P<persona_id>\d+)/$',
+        views.set_persona, name='set_persona'),
     url(
         r'^persona/skip/$',
-        views.SkipPersonaView, name='skip_persona')
+        views.skip_persona, name='skip_persona')
 )
