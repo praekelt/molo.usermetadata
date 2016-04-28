@@ -5,6 +5,9 @@ from django.core.urlresolvers import reverse
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.core.models import SiteLanguage
 
+from wagtail.wagtailcore.models import Site
+from wagtail.contrib.settings.context_processors import SettingsProxy
+
 from molo.usermetadata.models import PersonaIndexPage, PersonaPage
 
 
@@ -35,6 +38,19 @@ class TestPages(TestCase, MoloTestCaseMixin):
         self.client = Client()
         # Login
         self.user = self.login()
+
+        site = Site.objects.get(is_default_site=True)
+        setting = SettingsProxy(site)
+        self.persona_settings = setting['usermetadata']['PersonaeSettings']
+        self.persona_settings.persona_required = True
+        self.persona_settings.save()
+
+    def test_persona_page_is_deactivated(self):
+
+        self.persona_settings.persona_required = False
+        self.persona_settings.save()
+        response = self.client.get('/')
+        self.assertEquals(response.status_code, 200)
 
     def test_persona_page_redirect(self):
 
