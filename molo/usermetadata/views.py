@@ -11,8 +11,10 @@ class PersonaView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         persona_pages = PersonaPage.objects.live().all()
         context = super(PersonaView, self).get_context_data(*args, **kwargs)
+        locale_code = context.get('locale_code')
         context.update({
-            'persona_pages': persona_pages,
+            'persona_pages':
+            [a.get_translation_for(locale_code) or a for a in persona_pages],
             'next': self.request.GET.get('next')})
         return context
 
