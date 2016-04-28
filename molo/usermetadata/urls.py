@@ -11,5 +11,5 @@ urlpatterns = patterns(
         views.set_persona, name='set_persona'),
     url(
         r'^persona/skip/$',
-        views.skip_persona, name='skip_persona')
+        views.skip_persona, name='skip_persona'),
 )
