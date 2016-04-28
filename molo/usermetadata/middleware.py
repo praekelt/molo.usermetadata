@@ -1,20 +1,27 @@
-from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 
 class PersonaMiddleware(object):
 
     def process_request(self, request):
         exclude = [
+            settings.MEDIA_URL,
+            settings.STATIC_URL,
             reverse('molo.usermetadata:persona'),
+            reverse('health'),
+            reverse('versions'),
             '/admin/',
             'django-admin/',
+            '/import/',
+            '/import/',
             '/locale/'
         ]
         if any([path for path in exclude if request.path.startswith(path)]):
             return None
 
-        if not ('MOLO_PERSONA_SELECTION') in request.session:
-            url = reverse('molo.usermetadata:persona')
-            url = '%s?next=%s' % (url, request.path)
-            return HttpResponseRedirect(url)
+        if 'MOLO_PERSONA_SELECTION' not in request.session:
+            url = '%s?next=%s' % (reverse('molo.usermetadata:persona'),
+                                  request.path)
+            return redirect(url)

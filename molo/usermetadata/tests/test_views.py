@@ -86,3 +86,7 @@ class TestPages(TestCase, MoloTestCaseMixin):
         response = self.client.get('%s?next=%s' % ((
             reverse('molo.usermetadata:skip_persona')), '/'))
         self.assertRedirects(response, '/')
+
+        response = self.client.get('/')
+        self.assertEquals(
+            response.status_code, 200)
