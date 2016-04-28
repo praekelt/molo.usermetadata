@@ -74,8 +74,7 @@ class TestPages(TestCase, MoloTestCaseMixin):
         self.assertRedirects(response, '/')
 
         response = self.client.get('/')
-        self.assertEquals(
-            response.status_code, 200)
+        self.assertEquals(response.status_code, 200)
 
     def test_skip_persona_page(self):
 
@@ -88,5 +87,11 @@ class TestPages(TestCase, MoloTestCaseMixin):
         self.assertRedirects(response, '/')
 
         response = self.client.get('/')
-        self.assertEquals(
-            response.status_code, 200)
+        self.assertEquals(response.status_code, 200)
+
+    def test_settings_persona_ignore_path(self):
+        self.mk_articles(self.yourmind_sub)
+        excl = ['/sections/your-mind/your-mind-subsection/test-page-1/']
+        with self.settings(PERSONA_IGNORE_PATH=excl):
+            response = self.client.get(excl[0])
+            self.assertEquals(response.status_code, 200)

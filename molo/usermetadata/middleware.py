@@ -18,6 +18,10 @@ class PersonaMiddleware(object):
             '/import/',
             '/locale/'
         ]
+
+        if hasattr(settings, 'PERSONA_IGNORE_PATH'):
+            exclude += settings.PERSONA_IGNORE_PATH
+
         if any([path for path in exclude if request.path.startswith(path)]):
             return None
 
