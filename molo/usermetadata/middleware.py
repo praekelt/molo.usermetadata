@@ -22,7 +22,6 @@ class PersonaMiddleware(object):
                 '/admin/',
                 'django-admin/',
                 '/import/',
-                '/import/',
                 '/locale/'
             ]
 

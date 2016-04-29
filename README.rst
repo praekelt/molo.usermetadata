@@ -21,7 +21,7 @@ Installation::
    pip install molo.usermetadata
 
 
-Django setup::
+In your app settings::
 
    INSTALLED_APPS = (
       'molo.usermetadata',
@@ -31,8 +31,8 @@ Django setup::
       'molo.usermetadata.middleware.PeronsaMiddleware'
    )
 
- In your urls.py::
+ In your app urls.py::
 
     urlpatterns += patterns('',
-         url(r'^usermetadata/', include('molo.usermetadata.urls', namespace='molo.usermetadata', app_name='molo.usermetadata')),
+         url(r'^meta/', include('molo.usermetadata.urls', namespace='molo.usermetadata', app_name='molo.usermetadata')),
     )
