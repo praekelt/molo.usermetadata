@@ -12,10 +12,10 @@ class PersonaMiddleware(object):
         site = Site.objects.get(is_default_site=True)
         setting = SettingsProxy(site)
         persona_settings = setting['usermetadata']['PersonaeSettings']
-        
+
         if not persona_settings.persona_required:
             return None
-        
+
         exclude = [
             settings.MEDIA_URL,
             settings.STATIC_URL,
