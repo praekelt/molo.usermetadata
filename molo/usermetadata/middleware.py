@@ -12,26 +12,27 @@ class PersonaMiddleware(object):
         site = Site.objects.get(is_default_site=True)
         setting = SettingsProxy(site)
         persona_settings = setting['usermetadata']['PersonaeSettings']
-        if persona_settings.persona_required:
-            exclude = [
-                settings.MEDIA_URL,
-                settings.STATIC_URL,
-                reverse('molo.usermetadata:persona'),
-                reverse('health'),
-                reverse('versions'),
-                '/admin/',
-                'django-admin/',
-                '/import/',
-                '/locale/'
-            ]
+        if not persona_settings.persona_required:
+            return None
+        exclude = [
+            settings.MEDIA_URL,
+            settings.STATIC_URL,
+            reverse('molo.usermetadata:persona'),
+            reverse('health'),
+            reverse('versions'),
+            '/admin/',
+            'django-admin/',
+            '/import/',
+            '/locale/'
+        ]
 
-            if hasattr(settings, 'PERSONA_IGNORE_PATH'):
-                exclude += settings.PERSONA_IGNORE_PATH
+        if hasattr(settings, 'PERSONA_IGNORE_PATH'):
+            exclude += settings.PERSONA_IGNORE_PATH
 
-            if any([p for p in exclude if request.path.startswith(p)]):
-                return None
+        if any([p for p in exclude if request.path.startswith(p)]):
+            return None
 
-            if 'MOLO_PERSONA_SELECTION' not in request.session:
-                url = '%s?next=%s' % (reverse('molo.usermetadata:persona'),
-                                      request.path)
-                return redirect(url)
+        if 'MOLO_PERSONA_SELECTION' not in request.session:
+            url = '%s?next=%s' % (reverse('molo.usermetadata:persona'),
+                                  request.path)
+            return redirect(url)

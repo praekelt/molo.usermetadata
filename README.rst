@@ -36,3 +36,5 @@ In your app settings::
     urlpatterns += patterns('',
          url(r'^meta/', include('molo.usermetadata.urls', namespace='molo.usermetadata', app_name='molo.usermetadata')),
     )
+
+.. NOTE:: In order for the personae to be activated, choose activate under wagtail settings > personae settings
