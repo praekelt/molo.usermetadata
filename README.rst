@@ -11,12 +11,10 @@ Molo User Metadata
 
 Provides code to help with User metadata in a project using the Molo code base.
 
-Note::
-
-   This library does not provide a Django user model, it provides a
-   metadata model that can be attached to a user. Our experience is
-   that custom User models in Django add all sorts of unpleasantries
-   when using migrations.
+.. Note:: This library does not provide a Django user model, it provides a
+          metadata model that can be attached to a user. Our experience is
+          that custom User models in Django add all sorts of unpleasantries
+          when using migrations.
 
 Installation::
 
