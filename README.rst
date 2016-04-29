@@ -26,3 +26,13 @@ Django setup::
    INSTALLED_APPS = (
       'molo.usermetadata',
    )
+
+   MIDDLEWARE = (
+      'molo.usermetadata.middleware.PeronsaMiddleware'
+   )
+
+ In your urls.py::
+
+    urlpatterns += patterns('',
+         url(r'^usermetadata/', include('molo.usermetadata.urls', namespace='molo.usermetadata', app_name='molo.usermetadata')),
+    )
