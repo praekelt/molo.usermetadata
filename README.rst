@@ -11,10 +11,12 @@ Molo User Metadata
 
 Provides code to help with User metadata in a project using the Molo code base.
 
-note::   This library does not provide a Django user model, it provides a
-            metadata model that can be attached to a user. Our experience is
-            that custom User models in Django add all sorts of unpleasantries
-            when using migrations.
+Note::
+
+   This library does not provide a Django user model, it provides a
+   metadata model that can be attached to a user. Our experience is
+   that custom User models in Django add all sorts of unpleasantries
+   when using migrations.
 
 Installation::
 
@@ -31,10 +33,12 @@ In your app settings::
       'molo.usermetadata.middleware.PeronsaMiddleware'
    )
 
- In your app urls.py::
+In your app urls.py::
 
-    urlpatterns += patterns('',
-         url(r'^meta/', include('molo.usermetadata.urls', namespace='molo.usermetadata', app_name='molo.usermetadata')),
-    )
+   urlpatterns += patterns('',
+        url(r'^meta/', include('molo.usermetadata.urls', namespace='molo.usermetadata', app_name='molo.usermetadata')),
+   )
 
-NOTE:: In order for the personae to be activated, choose activate under wagtail settings > personae settings
+Note::
+
+   In order for the personae to be activated, choose activate under wagtail settings > personae settings
