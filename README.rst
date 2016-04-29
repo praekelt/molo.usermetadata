@@ -11,7 +11,7 @@ Molo User Metadata
 
 Provides code to help with User metadata in a project using the Molo code base.
 
-.. note::   This library does not provide a Django user model, it provides a
+note::   This library does not provide a Django user model, it provides a
             metadata model that can be attached to a user. Our experience is
             that custom User models in Django add all sorts of unpleasantries
             when using migrations.
@@ -37,4 +37,4 @@ In your app settings::
          url(r'^meta/', include('molo.usermetadata.urls', namespace='molo.usermetadata', app_name='molo.usermetadata')),
     )
 
-.. NOTE:: In order for the personae to be activated, choose activate under wagtail settings > personae settings
+NOTE:: In order for the personae to be activated, choose activate under wagtail settings > personae settings
