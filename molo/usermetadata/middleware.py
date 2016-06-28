@@ -8,7 +8,6 @@ from wagtail.contrib.settings.context_processors import SettingsProxy
 class PersonaMiddleware(object):
 
     def process_request(self, request):
-
         site = Site.objects.get(is_default_site=True)
         setting = SettingsProxy(site)
         persona_settings = setting['usermetadata']['PersonaeSettings']
