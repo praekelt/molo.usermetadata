@@ -56,3 +56,17 @@ class TestPages(TestCase, MoloTestCaseMixin):
 
         response = self.client.get('/')
         self.assertContains(response, 'persona=child')
+
+    def test_skip_persona_selected_tag(self):
+
+        response = self.client.get('/')
+        self.assertRedirects(
+            response, reverse('molo.usermetadata:persona') + '?next=/')
+
+        response = self.client.get('%s?next=%s' % ((
+            reverse('molo.usermetadata:skip_persona')), '/'))
+
+        self.assertTrue(self.client.session['MOLO_PERSONA_SELECTED'])
+
+        response = self.client.get('/')
+        self.assertContains(response, 'persona=skip')
