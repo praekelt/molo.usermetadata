@@ -30,4 +30,5 @@ def set_persona(request, persona_id):
 
 def skip_persona(request):
     request.session['MOLO_PERSONA_SELECTION'] = 'skip'
+    request.session['MOLO_PERSONA_SELECTED'] = True
     return HttpResponseRedirect(request.GET.get('next', '/'))
