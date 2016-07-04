@@ -1,5 +1,10 @@
 CHANGE LOG
 ==========
+1.0.4
+-----
+- Adding skip persona to GA
+- Updating README
+
 1.0.3
 -----
 - Adding GA to persona page
