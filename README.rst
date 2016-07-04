@@ -40,3 +40,21 @@ In your app urls.py::
 Note::
 
    In order for the personae to be activated, choose activate under wagtail settings > personae settings
+
+Google Analytics::
+   In order for GA to pick up persona data you need to add the following to your base.html:
+     At the top of the template you need to load the persona tag:
+          {% load persona_tags %}
+
+     In your GTM block add the following to get the persona value:
+          {% persona_selected as persona_selected_value %}
+
+     In your <noscript> tag add the following to src in order to add the persona to the data layer when JS is not enabled:
+          {% if persona_selected_value%}&persona={{ persona_selected_value }}&event=persona{% endif %}
+
+     At the bottom of your tag manager block add the following in order to add the persona to the data layer when JS is enabled:
+          {% if persona_selected_value %}
+            <script type="text/javascript">
+              dataLayer.push({'persona': '{{ persona_selected_value }}', 'event': 'persona'});
+            </script>
+          {% endif %}
