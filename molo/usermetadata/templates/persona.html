@@ -3,21 +3,21 @@
 
 {% block content %}
 <div class="personae">
-    <h3 class="personae__title">Are you a ...</h3>
+    <h1 class="heading heading--personae">Are you a ...</h1>
     <ul class="personae-list">
         {% for persona in persona_pages %}
           <li class="personae-list__item">
-              {% if persona.image %}
-                {% image persona.image width-65 as tmp_photo %} 
-                <img src="{{ tmp_photo.url }}" alt="{{ persona.image.title }}" class="personae-icon" />
-              {% endif %}
-            <a href="{% url 'molo.usermetadata:set_persona' persona.id %}?next={{ next }}">
-              <span class="personae-nav">{{ persona.title }}</span>
+            {% if persona.image %}
+              {% image persona.image width-65 as tmp_photo %} 
+              <img src="{{ tmp_photo.url }}" alt="{{ persona.image.title }}" class="personae__image" />
+            {% endif %}
+            <a href="{% url 'molo.usermetadata:set_persona' persona.id %}?next={{ next }}" class="personae__title">
+              {{ persona.title }}
             </a>
           </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'molo.usermetadata:skip_persona'%}?next={{ next }}" class="personae-skip">{% trans "Skip" %}</a>
+    <a href="{% url 'molo.usermetadata:skip_persona'%}?next={{ next }}" class="personae__skip">{% trans "Skip" %}</a>
 </div>
 {% endblock %}
 
