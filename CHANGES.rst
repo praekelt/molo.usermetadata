@@ -1,6 +1,10 @@
 CHANGE LOG
 ==========
 
+1.1.1
+-----
+- Empty footer section on template
+
 1.1.0
 -----
 - Adding BEM rules to the template
