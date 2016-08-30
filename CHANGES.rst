@@ -1,6 +1,10 @@
 CHANGE LOG
 ==========
 
+1.1.2
+-----
+- Repeated footer template fix
+
 1.1.1
 -----
 - Empty footer section on template
