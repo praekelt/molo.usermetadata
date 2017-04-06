@@ -1,6 +1,10 @@
 CHANGE LOG
 ==========
 
+1.1.3
+-----
+- Add trans variable in persona.html
+
 1.1.2
 -----
 - Repeated footer template fix
