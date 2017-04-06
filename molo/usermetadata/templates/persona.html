@@ -2,7 +2,7 @@
 {% load wagtailimages_tags i18n %}
 
 {% block content %}
-<h1 class="heading heading--personae">Are you a ...</h1>
+<h1 class="heading heading--personae">{% trans "Are you a ..." %}</h1>
 <div class="personae">
     <ul class="personae-list">
         {% for persona in persona_pages %}
