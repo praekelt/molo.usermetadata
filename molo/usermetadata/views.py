@@ -21,8 +21,8 @@ class PersonaView(TemplateView):
         return context
 
 
-def set_persona(request, persona_id):
-    persona = get_object_or_404(PersonaPage, pk=persona_id)
+def set_persona(request, persona_slug):
+    persona = get_object_or_404(PersonaPage, slug=persona_slug)
     request.session['MOLO_PERSONA_SELECTION'] = persona.slug
     request.session['MOLO_PERSONA_SELECTED'] = True
     return HttpResponseRedirect(request.GET.get('next', '/'))

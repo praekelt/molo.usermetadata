@@ -85,7 +85,7 @@ class TestPages(TestCase, MoloTestCaseMixin):
         response = self.client.get('%s?next=%s' % ((
             reverse(
                 'molo.usermetadata:set_persona',
-                kwargs={'persona_id': self.page.pk})),
+                kwargs={'persona_slug': self.page.slug})),
             '/'))
         self.assertRedirects(response, '/')
 
