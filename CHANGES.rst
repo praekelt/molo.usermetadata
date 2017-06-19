@@ -1,5 +1,27 @@
 CHANGE LOG
 ==========
+
+1.2.0
+-----
+- Used persona slug instead of id in persona url
+
+1.1.3
+-----
+- Add trans variable in persona.html
+
+1.1.2
+-----
+- Repeated footer template fix
+
+1.1.1
+-----
+- Empty footer section on template
+
+1.1.0
+-----
+- Adding BEM rules to the template
+
+==========
 1.0.4
 -----
 - Adding skip persona to GA
