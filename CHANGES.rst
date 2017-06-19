@@ -1,6 +1,10 @@
 CHANGE LOG
 ==========
 
+1.2.0
+-----
+- Used persona slug instead of id in persona url
+
 1.1.3
 -----
 - Add trans variable in persona.html
