@@ -1,6 +1,11 @@
 CHANGE LOG
 ==========
 
+1.3.0
+-----
+- Add support for molo v6
+- Support Django v1.11
+
 1.2.0
 -----
 - Used persona slug instead of id in persona url
