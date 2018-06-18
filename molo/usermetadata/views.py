@@ -15,8 +15,10 @@ class PersonaView(TemplateView):
         context = super(PersonaView, self).get_context_data(*args, **kwargs)
         locale_code = get_locale_code(get_language_from_request(self.request))
         context.update({
-            'persona_pages':
-            [a.get_translation_for(locale_code) or a for a in persona_pages],
+            'persona_pages': [
+                a.get_translation_for(locale_code, self.request.site) or
+                a for a in persona_pages
+            ],
             'next': self.request.GET.get('next', '/')})
         return context
 

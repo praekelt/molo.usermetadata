@@ -1,10 +1,9 @@
 from molo.usermetadata import views
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^persona/$', views.PersonaView.as_view(), name='persona'),
     url(
         r'^persona/skip/$',
@@ -12,4 +11,4 @@ urlpatterns = patterns(
     url(
         r'^persona/(?P<persona_slug>[\w-]+)/$',
         views.set_persona, name='set_persona'),
-)
+]
