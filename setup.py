@@ -1,32 +1,31 @@
+import codecs
 import os
-
 from setuptools import setup, find_packages
 
-here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.rst')) as f:
-    readme = f.read()
+HERE = os.path.abspath(os.path.dirname(__file__))
 
-with open(os.path.join(here, 'requirements.txt')) as f:
-    requires = filter(None, f.readlines())
 
-with open(os.path.join(here, 'requirements-dev.txt')) as f:
-    requires_dev = filter(None, f.readlines())
+def read(*parts):
+    with codecs.open(os.path.join(HERE, *parts), 'rb', 'utf-8') as f:
+        return f.read()
 
-with open(os.path.join(here, 'VERSION')) as f:
-    version = f.read().strip()
+
+install_requires = [
+    'molo.core>=6.0.0, <=7.0.0'
+]
 
 setup(name='molo.usermetadata',
-      version=version,
+      version=read('VERSION'),
       description=('User metadata to be used with Molo.'),
-      long_description=readme,
+      long_description=read('README.rst'),
       classifiers=[
           "Programming Language :: Python",
           "Framework :: Django",
           "Topic :: Internet :: WWW/HTTP",
           "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
       ],
-      author='Praekelt Foundation',
-      author_email='dev@praekelt.com',
+      author='Praekelt.org',
+      author_email='dev@praekelt.org',
       url='http://github.com/praekelt/molo.usermetadata',
       license='BSD',
       keywords='praekelt, mobi, web, django',
@@ -34,6 +33,18 @@ setup(name='molo.usermetadata',
       include_package_data=True,
       zip_safe=False,
       namespace_packages=['molo'],
-      install_requires=requires,
-      tests_require=requires_dev,
+      install_requires=install_requires,
+      extras_require = {
+        'test': [
+            'pytest==3.0.0',
+            'pytest-django==3.1.1',
+            'responses',
+        ],
+        'cover': [
+            'pytest-cov',
+        ],
+        'lint': [
+            'flake8==3.4.1',
+        ],
+      },
       entry_points={})

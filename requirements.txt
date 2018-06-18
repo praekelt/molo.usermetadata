@@ -1,1 +1,2 @@
-molo.core>=6.0.0, <=7.0.0
+# Our dependencies are all specified in setup.py
+-e .
