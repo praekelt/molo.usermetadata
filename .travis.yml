@@ -16,7 +16,8 @@ script:
   - molo scaffold testapp --include molo.usermetadata ^meta/
   - flake8 testapp
   - cp test_settings.py testapp/testapp/settings/local.py
-  - cp -a molo/usermetadata/test_templates/base.html testapp/testapp/templates/base.html
+  - mkdir testapp/testapp/templates/
+  - cp molo/usermetadata/test_templates/base.html testapp/testapp/templates/base.html
   - pip install -e testapp
   - py.test --cov=molo
 after_success:
