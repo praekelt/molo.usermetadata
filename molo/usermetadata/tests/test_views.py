@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 
 from molo.core.tests.base import MoloTestCaseMixin
-from molo.core.models import SiteLanguage
+from molo.core.models import Main, SiteLanguageRelation, Languages
 
 from wagtail.wagtailcore.models import Site
 from wagtail.contrib.settings.context_processors import SettingsProxy
@@ -15,9 +15,16 @@ from molo.usermetadata.models import PersonaIndexPage, PersonaPage
 class TestPages(TestCase, MoloTestCaseMixin):
 
     def setUp(self):
-        self.english = SiteLanguage.objects.create(locale='en')
-        self.french = SiteLanguage.objects.create(locale='fr')
         self.mk_main()
+        self.main = Main.objects.all().first()
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='en', is_active=True
+        )
+        self.french = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='fr', is_active=True
+        )
 
         self.index = PersonaIndexPage(title='Personae', slug="personae")
         self.main.add_child(instance=self.index)
@@ -60,10 +67,10 @@ class TestPages(TestCase, MoloTestCaseMixin):
 
     def test_persona_page_redirect_from_section(self):
 
-        response = self.client.get('/sections/your-mind/')
+        response = self.client.get('/sections-main-1/your-mind/')
         self.assertRedirects(
             response, reverse(
-                'molo.usermetadata:persona') + '?next=/sections/your-mind/')
+                'molo.usermetadata:persona') + '?next=/sections-main-1/your-mind/')
 
     def test_translated_persona_page(self):
         self.client.post(reverse(
@@ -107,7 +114,7 @@ class TestPages(TestCase, MoloTestCaseMixin):
 
     def test_settings_persona_ignore_path(self):
         self.mk_articles(self.yourmind_sub)
-        excl = ['/sections/your-mind/your-mind-subsection/test-page-1/']
+        excl = ['/sections-main-1/your-mind/your-mind-subsection/test-page-1/']
         with self.settings(PERSONA_IGNORE_PATH=excl):
             response = self.client.get(excl[0])
             self.assertEquals(response.status_code, 200)

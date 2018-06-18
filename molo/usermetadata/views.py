@@ -4,19 +4,21 @@ from django.http import HttpResponseRedirect
 from django.utils.translation import get_language_from_request
 from molo.core.utils import get_locale_code
 from molo.usermetadata.models import PersonaPage
+from wagtail.wagtailcore.models import Site
 
 
 class PersonaView(TemplateView):
     template_name = 'persona.html'
 
     def get_context_data(self, *args, **kwargs):
+        site = Site.objects.get(is_default_site=True)
         persona_pages = PersonaPage.objects.live().filter(
             languages__language__is_main_language=True)
         context = super(PersonaView, self).get_context_data(*args, **kwargs)
         locale_code = get_locale_code(get_language_from_request(self.request))
         context.update({
             'persona_pages':
-            [a.get_translation_for(locale_code) or a for a in persona_pages],
+            [a.get_translation_for(locale_code, site) or a for a in persona_pages],
             'next': self.request.GET.get('next', '/')})
         return context
 
