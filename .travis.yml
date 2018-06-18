@@ -1,32 +1,41 @@
 sudo: false
 language: python
 python:
-  - "2.7"
-cache:
-  directories:
-    - $HOME/.pip-cache/
+  - '2.7'
+  - '3.6'
+
+env:
+  - TEST=molo_lint
+  - TEST=testapp_lint
+  - TEST=build
+
+cache: pip
+
+before_install:
+  - pip install --upgrade pip
 install:
-  - pip install --upgrade pip --cache-dir $HOME/.pip-cache/
-  - pip install coveralls coverage --cache-dir $HOME/.pip-cache/
-  - pip install flake8 --cache-dir $HOME/.pip-cache/
-  - pip install -r requirements-dev.txt --cache-dir $HOME/.pip-cache/
-  - pip install -e . --cache-dir $HOME/.pip-cache/
-script:
-  - flake8 molo
-  - molo scaffold testapp --include molo.usermetadata ^meta/
-  - flake8 testapp
-  - cp test_settings.py testapp/testapp/settings/local.py
-  - mkdir testapp/testapp/templates/
-  - cp molo/usermetadata/test_templates/base.html testapp/testapp/templates/base.html
-  - pip install -e testapp
-  - py.test --cov=molo
+  - pip install -r requirements-dev.txt
+  - pip install -e .
+  - pip install coveralls
+script: ./travis.sh
 after_success:
   - coveralls
-deploy:
-  provider: pypi
-  user: Praekelt
-  password:
-    secure: JpP0e3Ojczui131boWXIQFqm6EbUke7/h/48WULeGQxjsnGrFRRT1y4z0qG1LPDnX9PHaIj971hnpqLOGZ2L0hyEIJ+KFkDErln4XKQRo3RqMRu7V/O3SrUr/439jksetPXokZJBRFZEyT6yY4epBry8HLSq0nxD1B7ELpT+uL+yA40rvIojactFNyyYT4jQpPN3GQasXgjNPhbnRukxxGqvQ/qvcvZzHwi6aqDml2YnPz2BX8r4q5wD7GteJp61PKuFM6qQG37S9Ofih0UNdVeHb7iJn91zn0YIO9/t+pN+e0/+vmghd9JzOHr3f6VT5CxM6Elyt1fYXZ7gxwcFMK2rAEHQ2uDQB1gGHDy2Soj4wjwOlzNqEQEwWw3yDlr1z/XATKSpuuRzh83ICLFEl1grhJ8xbnSlm2Vysab0z1X9hQ/HnfndWzSEgLBWCxCN6c5by65A7bXu/y38QtK2qFLdrEtdFXWVN2clXZxB6TBJow6EGm5kXEEyzd6cJfrM7X9I42aos0D/wkE43Ab9WW2wsWIXv3oqNSLPXYIXqb80JKW7N6SihnZvx3zgvk/ogtbuIre1MJJpQ7pfByFBQwOQJsLcu1RDtHnV1Q41MfT3a2dHCDJX9fvLO9zyrd7ayP9M2bnB5pJlBJyHR9pA1ZX8+pKVTqLDqG7CujSI64s=
-  on:
-    tags: true
-    all_branches: true
+
+jobs:
+  include:
+    - stage: release
+      if: tag IS present
+      env: []
+      before_install: []
+      install: []
+      script: skip
+      after_success: []
+      deploy:
+        provider: pypi
+        distributions: sdist bdist_wheel
+        user: Praekelt
+        password:
+          secure: JpP0e3Ojczui131boWXIQFqm6EbUke7/h/48WULeGQxjsnGrFRRT1y4z0qG1LPDnX9PHaIj971hnpqLOGZ2L0hyEIJ+KFkDErln4XKQRo3RqMRu7V/O3SrUr/439jksetPXokZJBRFZEyT6yY4epBry8HLSq0nxD1B7ELpT+uL+yA40rvIojactFNyyYT4jQpPN3GQasXgjNPhbnRukxxGqvQ/qvcvZzHwi6aqDml2YnPz2BX8r4q5wD7GteJp61PKuFM6qQG37S9Ofih0UNdVeHb7iJn91zn0YIO9/t+pN+e0/+vmghd9JzOHr3f6VT5CxM6Elyt1fYXZ7gxwcFMK2rAEHQ2uDQB1gGHDy2Soj4wjwOlzNqEQEwWw3yDlr1z/XATKSpuuRzh83ICLFEl1grhJ8xbnSlm2Vysab0z1X9hQ/HnfndWzSEgLBWCxCN6c5by65A7bXu/y38QtK2qFLdrEtdFXWVN2clXZxB6TBJow6EGm5kXEEyzd6cJfrM7X9I42aos0D/wkE43Ab9WW2wsWIXv3oqNSLPXYIXqb80JKW7N6SihnZvx3zgvk/ogtbuIre1MJJpQ7pfByFBQwOQJsLcu1RDtHnV1Q41MfT3a2dHCDJX9fvLO9zyrd7ayP9M2bnB5pJlBJyHR9pA1ZX8+pKVTqLDqG7CujSI64s=
+        on:
+          tags: true
+          all_branches: true
