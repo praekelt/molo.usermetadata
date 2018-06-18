@@ -69,8 +69,9 @@ class TestPages(TestCase, MoloTestCaseMixin):
 
         response = self.client.get('/sections-main-1/your-mind/')
         self.assertRedirects(
-            response, reverse(
-                'molo.usermetadata:persona') + '?next=/sections-main-1/your-mind/')
+            response, reverse('molo.usermetadata:persona') +
+            '?next=/sections-main-1/your-mind/'
+        )
 
     def test_translated_persona_page(self):
         self.client.post(reverse(
