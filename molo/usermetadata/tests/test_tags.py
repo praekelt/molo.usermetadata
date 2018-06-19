@@ -3,20 +3,23 @@ from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 
 from molo.core.tests.base import MoloTestCaseMixin
-from molo.core.models import SiteLanguage
+from molo.core.models import Main, SiteLanguageRelation, Languages
+from molo.usermetadata.models import PersonaIndexPage, PersonaPage
 
 from wagtail.wagtailcore.models import Site
 from wagtail.contrib.settings.context_processors import SettingsProxy
-
-from molo.usermetadata.models import PersonaIndexPage, PersonaPage
 
 
 @pytest.mark.django_db
 class TestPages(TestCase, MoloTestCaseMixin):
 
     def setUp(self):
-        self.english = SiteLanguage.objects.create(locale='en')
         self.mk_main()
+        self.main = Main.objects.all().first()
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=Languages.for_site(self.main.get_site()),
+            locale='en', is_active=True
+        )
 
         self.index = PersonaIndexPage(title='Personae', slug="personae")
         self.main.add_child(instance=self.index)
@@ -49,7 +52,7 @@ class TestPages(TestCase, MoloTestCaseMixin):
         response = self.client.get('%s?next=%s' % ((
             reverse(
                 'molo.usermetadata:set_persona',
-                kwargs={'persona_id': self.page.pk})),
+                kwargs={'persona_slug': self.page.slug})),
             '/'))
 
         self.assertTrue(self.client.session['MOLO_PERSONA_SELECTED'])
