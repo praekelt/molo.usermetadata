@@ -15,7 +15,6 @@ before_install:
   - pip install --upgrade pip
 install:
   - pip install -r requirements-dev.txt
-  - pip install -e .
   - pip install coveralls
 script: ./travis.sh
 after_success:
