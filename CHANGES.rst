@@ -1,5 +1,9 @@
 CHANGE LOG
 ==========
+6.0.0
+-----
+- Molo 6 compatibility
+- No longer supporting Django 1.9, see upgrade considerations https://docs.djangoproject.com/en/2.0/releases/1.10/
 
 1.2.0
 -----
